@@ -1,0 +1,38 @@
+version: "3.5"
+
+services:
+  backend:
+    image: agiletech.vn/backend
+    build: 
+      context: ./backend
+
+    volumes:
+      - ./backend:/usr/src/app
+      - ./storage:/usr/src/storage
+    tty: true
+
+    environment: 
+      - REDIS_URL=redis://redis_svc
+
+    ports:
+      - 3001:3000
+
+    depends_on:
+      - redis_svc
+
+  redis_svc:
+    image: redis:alpine3.13
+    volumes:
+      - ./data:/data
+
+  frontend:
+    image: agiletech.vn/frontend
+    build:
+      context: ./frontend
+
+    volumes: 
+      - ./frontend:/usr/src/app
+
+    tty: true
+    ports:
+      - 8001:8000
