@@ -1,9 +1,13 @@
+import 'antd/dist/antd.css';
+
+import React from 'react';
+import PhoneCatalogue from '@/components/PhoneCatalogue';
 import styles from './index.less';
 
-export default function IndexPage() {
+export default function() {
   return (
-    <div>
-      <h1 className={styles.title}>Page index</h1>
+    <div className={styles.normal}>
+      <PhoneCatalogue />
     </div>
   );
 }
