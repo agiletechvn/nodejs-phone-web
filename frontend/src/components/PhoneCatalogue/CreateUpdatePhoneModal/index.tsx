@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Form, Input, Button, Upload, Typography, InputNumber } from 'antd';
-import strings from './strings';
-import { PhoneInterface } from './Phone';
-import { PhoneController } from './services';
+import { Modal, Form, Input, Button, Upload, Typography, InputNumber, message } from 'antd';
+import strings from '../strings';
 import { useRequest } from '@umijs/hooks';
+import { createPhone, updatePhone } from '@/domains/services/phones';
+import { PhoneInterface } from '@/domains/entities/phones';
 
 const MAX_LENGTH = 60;
 
@@ -20,28 +20,29 @@ const labelDefaultProps = {
 type PhoneModalProps = {
   title: string;
   item?: PhoneInterface;
-  itemId?: string;
+  itemId?: number;
   onSubmitSuccess?: Function;
 };
 
-const Controller = new PhoneController();
-
-const PhoneModal: React.FC<PhoneModalProps> = (props: PhoneModalProps) => {
+const CreateUpdatePhoneModal: React.FC<PhoneModalProps> = (props: PhoneModalProps) => {
   const [visible, setVisible] = useState(false);
 
   const [form] = Form.useForm();
 
-  const createRequest = useRequest(Controller.createPhone, {
+  const createRequest = useRequest(createPhone, {
     manual: true,
     onSuccess: () => {
       setVisible(false);
       props.onSubmitSuccess && props.onSubmitSuccess();
     },
-    onError: () => {}
+    onError: (er) => {
+      console.log(er);
+      // message.error(er)
+    }
 
   });
 
-  const editRequest = useRequest(Controller.updatePhone, {
+  const editRequest = useRequest(updatePhone, {
     manual: true,
     // debounceInterval: 250,
     onSuccess: () => {
@@ -223,4 +224,4 @@ const PhoneModal: React.FC<PhoneModalProps> = (props: PhoneModalProps) => {
   );
 };
 
-export default PhoneModal;
+export default CreateUpdatePhoneModal;

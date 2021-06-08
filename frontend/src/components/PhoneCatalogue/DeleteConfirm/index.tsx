@@ -1,19 +1,18 @@
 import React from 'react';
 import { useRequest } from '@umijs/hooks';
 import { Button, message, Popconfirm } from 'antd';
-import { PhoneController } from './services';
-import strings from './strings';
+import strings from '../strings';
+import { deletePhone } from '@/domains/services/phones';
 
-const controller = new PhoneController();
 
 type DeleteConfirmProps = {
-  id: string;
+  id: number;
   refresh?: Function;
 };
 
 const DeleteConfirm: React.FC<DeleteConfirmProps> = (props: DeleteConfirmProps) => {
 
-  const deleteRequest = useRequest(controller.deletePhone, {
+  const deleteRequest = useRequest(deletePhone, {
     manual: true,
     onSuccess: () => {
       props.refresh && props.refresh();

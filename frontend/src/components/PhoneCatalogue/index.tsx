@@ -1,17 +1,16 @@
 import React from 'react';
-import { Table, Button, Row, Col, Popconfirm, Typography, Space } from 'antd';
-import { PhoneController } from './services';
+import { Table, Row, Col, Typography,  } from 'antd';
 import strings from './strings';
-import PhoneModal from './PhoneModal';
-import styles from './index.css';
+import styles from './index.less';
 import { useRequest } from '@umijs/hooks';
-import { PhoneInterface } from './Phone';
 import DeleteConfirm from './DeleteConfirm';
+import { PhoneInterface } from '@/domains/entities/phones';
+import { getPhones } from '@/domains/services/phones';
+import CreateUpdatePhoneModal from './CreateUpdatePhoneModal';
 
-const controller = new PhoneController();
 
 const PhoneCatalogue = () => {
-  const { loading, refresh, data } = useRequest(controller.loadPhones);
+  const { loading, refresh, data } = useRequest(getPhones);
 
   const columns = [
     {
@@ -57,7 +56,7 @@ const PhoneCatalogue = () => {
         return (
           <Row type="flex" align="middle" justify="end" gutter={[16, 16]}>
             <Col>
-              <PhoneModal title={strings.editPhone} item={item} onSubmitSuccess={refresh} itemId={item.id}/>
+              <CreateUpdatePhoneModal title={strings.editPhone} item={item} onSubmitSuccess={refresh} itemId={item.id}/>
             </Col>
             <Col>
               <DeleteConfirm id={item.id} refresh={refresh}/>
@@ -72,7 +71,7 @@ const PhoneCatalogue = () => {
     <div className={styles.container}>
       <Row type="flex" justify="end" align="middle" gutter={[16, 16]}>
         <Col>
-          <PhoneModal title={strings.addPhone} onSubmitSuccess={refresh}/>
+          <CreateUpdatePhoneModal title={strings.addPhone} onSubmitSuccess={refresh}/>
         </Col>
         <Col span={24}>
           <Table columns={columns} bordered loading={loading} dataSource={data} pagination={false}/>
