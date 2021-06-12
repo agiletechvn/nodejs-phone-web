@@ -1,11 +1,40 @@
 import React from 'react';
-import BasicLayout from '@/layouts'
-import PhoneTable from '@/components/PhoneCatalogue/PhoneTable';
+import { Row, Col, message } from 'antd';
+import BasicLayout from '@/layouts';
+import PhoneForm from '@/components/PhoneCatalogue/PhoneForm';
+import { useRequest } from '@umijs/hooks';
+import { createPhone } from '@/domains/services/phones';
 
-const PhoneCreate = () => {
+
+
+const PhoneCreate = (props) => {
+    const createRequest = useRequest(createPhone, {
+        manual: true,
+        onSuccess: () => {
+            props.history.goBack();
+            message.success('Create Phone Model Success');
+        },
+        onError: () => {
+            message.error('Something wrong happen! Please try again');
+        }
+        
+    });
+
+    const onFinish = (values) => {
+        createRequest.run({ ...values, imageFile: values.imageFile.file.originFileObj, })
+    }
+    
+
     return (
         <BasicLayout>
-            
+            <Row justify='center'> 
+                <Col span={20}>
+                    <PhoneForm 
+                        loading={createRequest.loading}
+                        onFinish={onFinish}
+                    />
+                </Col>
+            </Row>
         </BasicLayout>
     )
 }

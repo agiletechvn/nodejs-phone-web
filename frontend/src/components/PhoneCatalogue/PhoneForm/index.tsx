@@ -18,124 +18,26 @@ const labelDefaultProps = {
 };
 
 type PhoneModalProps = {
-  title: string;
-  item?: PhoneInterface;
-  itemId?: number;
-  onSubmitSuccess?: Function;
+  onFinish: Function;
+  loading: boolean;
+  initialValues: any;
 };
 
-const CreateUpdatePhoneModal: React.FC<PhoneModalProps> = (props: PhoneModalProps) => {
-  const [visible, setVisible] = useState(false);
+const PhoneForm: React.FC<PhoneModalProps> = (props) => {
 
   const [form] = Form.useForm();
 
-  const createRequest = useRequest(createPhone, {
-    manual: true,
-    onSuccess: () => {
-      setVisible(false);
-      props.onSubmitSuccess && props.onSubmitSuccess();
-    },
-    onError: (er) => {
-      console.log(er);
-      // message.error(er)
-    }
-
-  });
-
-  const editRequest = useRequest(updatePhone, {
-    manual: true,
-    // debounceInterval: 250,
-    onSuccess: () => {
-      setVisible(false);
-      props.onSubmitSuccess && props.onSubmitSuccess();
-    },
-  });
-
-  const onFinish = (values: any) => {
-    const {
-      name,
-      manufacturer,
-      description,
-      color,
-      price,
-      screen,
-      processor,
-      ram,
-      imageFile,
-    } = values;
-
-    if (props.itemId) {
-      editRequest.run(
-        {
-          name,
-          manufacturer,
-          description,
-          color,
-          price,
-          screen,
-          processor,
-          ram,
-          imageFile: imageFile ? imageFile.file.originFileObj : undefined,
-        },
-        props.itemId,
-      );
-    } else {
-      createRequest.run({
-        name,
-        manufacturer,
-        description,
-        color,
-        price,
-        screen,
-        processor,
-        ram,
-        imageFile: imageFile.file.originFileObj,
-      });
-    }
-  };
-
-  const onOk = () => {
-    form.submit();
-  };
-  
-  useEffect(() => {
-    if (visible) {
-      if (props.item) {
-        form.setFieldsValue({ ...props.item });
-      } else {
-        form.resetFields();
-      }
-    }
-    
-  }, [form, props.item, visible])
+  // const editRequest = useRequest(updatePhone, {
+  //   manual: true,
+  //   // debounceInterval: 250,
+  //   onSuccess: () => {
+  //     setVisible(false);
+  //     props.onSubmitSuccess && props.onSubmitSuccess();
+  //   },
+  // });
 
   return (
-    <>
-      <Button
-        onClick={() => {
-          setVisible(true);
-        }}
-        type="primary"
-      >
-        {props.title}
-      </Button>
-      <Modal
-        visible={visible}
-        mask
-        closable={false}
-        onCancel={() => {
-          form.resetFields();
-          setVisible(false);
-        }}
-        title={props.title}
-        maskClosable
-        onOk={onOk}
-        okButtonProps={{
-          disabled: createRequest.loading || editRequest.loading,
-          loading: editRequest.loading || createRequest.loading,
-        }}
-      >
-        <Form form={form} onFinish={onFinish}>
+        <Form form={form} onFinish={props?.onFinish} initialValues={props?.initialValues}>
           <Form.Item
             {...labelDefaultProps}
             label={strings.name}
@@ -200,7 +102,7 @@ const CreateUpdatePhoneModal: React.FC<PhoneModalProps> = (props: PhoneModalProp
             {...labelDefaultProps}
             label={strings.imageFileName}
             name="imageFile"
-            rules={[{ required: !props.itemId }]} // is Create
+            rules={[{ required: true }]} // is Create
           >
             <Upload
               accept="image/*"
@@ -218,10 +120,11 @@ const CreateUpdatePhoneModal: React.FC<PhoneModalProps> = (props: PhoneModalProp
           >
             <InputNumber {...inputDefaultProps} placeholder={strings.price} />
           </Form.Item>
+          <Button htmlType='submit' type='primary' loading={props.loading}>
+            {strings.save}
+          </Button>
         </Form>
-      </Modal>
-    </>
   );
 };
 
-export default CreateUpdatePhoneModal;
+export default PhoneForm;

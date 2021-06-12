@@ -1,13 +1,20 @@
 import 'antd/dist/antd.css';
 
 import React from 'react';
-import PhoneCatalogue from '@/components/PhoneCatalogue/PhoneTable';
+import { Typography, Row } from 'antd';
 import styles from './index.less';
+import { Link } from 'umi';
 
-export default function() {
+export default function () {
   return (
     <div className={styles.normal}>
-      <PhoneCatalogue />
+      <Row align='middle' justify='center'>
+        <Typography.Title>Welcome</Typography.Title>
+        
+      </Row>
+      <Row align='middle' justify='center'>
+        <Typography.Text level={1}>To <Link to='/phone'>Phone catalog</Link></Typography.Text>
+        </Row>
     </div>
   );
 }

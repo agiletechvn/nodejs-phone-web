@@ -19,7 +19,8 @@ const strings = {
     addNewPhone: "Add new phone",
     editPhone: "Edit Phone",
     deletePhoneQuestion: "Are you sure?",
-    ok: "Ok"
+    ok: "Ok",
+    save: "Save",
 }
 
 export default strings;

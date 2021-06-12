@@ -1,11 +1,11 @@
 import React from 'react';
-import { Table, Row, Col, Typography,  } from 'antd';
+import { Table, Row, Col, Typography, Button } from 'antd';
 import styles from './index.less';
 import { useRequest } from '@umijs/hooks';
 import DeleteConfirm from '../DeleteConfirm';
 import { PhoneInterface } from '@/domains/entities/phones';
 import { getPhones } from '@/domains/services/phones';
-import CreateUpdatePhoneModal from '../CreateUpdatePhoneModal';
+import CreateUpdatePhoneModal from '../PhoneForm';
 import strings from '@/locales';
 
 
@@ -56,7 +56,13 @@ const PhoneTable = () => {
         return (
           <Row type="flex" align="middle" justify="end" gutter={[16, 16]}>
             <Col>
-              <CreateUpdatePhoneModal title={strings.editPhone} item={item} onSubmitSuccess={refresh} itemId={item.id}/>
+            <Button
+       type="primary"
+     >
+       
+       {strings.editPhone}
+     </Button>
+              {/* <CreateUpdatePhoneModal title={strings.editPhone} item={item} onSubmitSuccess={refresh} itemId={item.id}/> */}
             </Col>
             <Col>
               <DeleteConfirm id={item.id} refresh={refresh}/>
@@ -71,7 +77,15 @@ const PhoneTable = () => {
     <div className={styles.container}>
       <Row type="flex" justify="end" align="middle" gutter={[16, 16]}>
         <Col>
-          <CreateUpdatePhoneModal title={strings.addPhone} onSubmitSuccess={refresh}/>
+        
+        <Button
+       href='/phone/create'
+       type="primary"
+     >
+
+       {strings.addPhone}
+     </Button>
+          {/* <CreateUpdatePhoneModal title={strings.addPhone} onSubmitSuccess={refresh}/> */}
         </Col>
         <Col span={24}>
           <Table columns={columns} bordered loading={loading} dataSource={data} pagination={false}/>
