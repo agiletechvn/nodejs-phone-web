@@ -1,15 +1,15 @@
 import React from 'react';
 import { Table, Row, Col, Typography,  } from 'antd';
-import strings from './strings';
 import styles from './index.less';
 import { useRequest } from '@umijs/hooks';
-import DeleteConfirm from './DeleteConfirm';
+import DeleteConfirm from '../DeleteConfirm';
 import { PhoneInterface } from '@/domains/entities/phones';
 import { getPhones } from '@/domains/services/phones';
-import CreateUpdatePhoneModal from './CreateUpdatePhoneModal';
+import CreateUpdatePhoneModal from '../CreateUpdatePhoneModal';
+import strings from '@/locales';
 
 
-const PhoneCatalogue = () => {
+const PhoneTable = () => {
   const { loading, refresh, data } = useRequest(getPhones);
 
   const columns = [
@@ -81,4 +81,4 @@ const PhoneCatalogue = () => {
   );
 };
 
-export default PhoneCatalogue;
+export default PhoneTable;

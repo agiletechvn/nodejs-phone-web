@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.css';
-import strings from './strings';
+import strings from '@/locales';
 
 const BasicLayout: React.FC = props => {
   return (

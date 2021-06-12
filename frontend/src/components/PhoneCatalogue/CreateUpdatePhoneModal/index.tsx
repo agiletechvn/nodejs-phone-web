@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Form, Input, Button, Upload, Typography, InputNumber, message } from 'antd';
-import strings from '../strings';
 import { useRequest } from '@umijs/hooks';
 import { createPhone, updatePhone } from '@/domains/services/phones';
 import { PhoneInterface } from '@/domains/entities/phones';
+import strings from '@/locales';
 
 const MAX_LENGTH = 60;
 

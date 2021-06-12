@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRequest } from '@umijs/hooks';
 import { Button, message, Popconfirm } from 'antd';
-import strings from '../strings';
 import { deletePhone } from '@/domains/services/phones';
+import strings from '@/locales';
 
 
 type DeleteConfirmProps = {

@@ -1,4 +1,5 @@
 const strings = {
+    pageTitle:  'Phone Catalogue',
     name: 'Name',
     description: 'Description',
     manufacturer: 'Manufacturer',
