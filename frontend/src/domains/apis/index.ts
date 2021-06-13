@@ -11,6 +11,7 @@ export const PATHS = {
   PHONE_CREATE: `/phones`,
   PHONE_UPDATE: (id: number) => `/phones/${id}`,
   PHONE_DELETE: (id: number) => `/phones/${id}`,
+  PHONE_DETAIL: (id: string) => `/phones/${id}`,
   PHONE_LIST: `/phones`,
 };
 

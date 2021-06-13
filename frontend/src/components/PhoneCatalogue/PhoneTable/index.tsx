@@ -58,11 +58,11 @@ const PhoneTable = () => {
             <Col>
             <Button
        type="primary"
+       href={`/phone?id=${item.id}`}
      >
        
        {strings.editPhone}
      </Button>
-              {/* <CreateUpdatePhoneModal title={strings.editPhone} item={item} onSubmitSuccess={refresh} itemId={item.id}/> */}
             </Col>
             <Col>
               <DeleteConfirm id={item.id} refresh={refresh}/>

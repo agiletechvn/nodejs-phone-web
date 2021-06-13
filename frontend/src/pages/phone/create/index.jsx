@@ -26,7 +26,7 @@ const PhoneCreate = (props) => {
     
 
     return (
-        <BasicLayout>
+        
             <Row justify='center'> 
                 <Col span={20}>
                     <PhoneForm 
@@ -35,7 +35,6 @@ const PhoneCreate = (props) => {
                     />
                 </Col>
             </Row>
-        </BasicLayout>
     )
 }
 

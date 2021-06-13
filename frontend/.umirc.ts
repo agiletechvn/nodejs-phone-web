@@ -5,9 +5,17 @@ export default defineConfig({
     type: 'none',
   },
   routes: [
+    
     { path: '/', component: '@/pages/index' },
-    { path: '/phone', component: '@/pages/phone' },
-    { path: '/phone/create', component: '@/pages/phone/create' },
+    { 
+      path: '/phone',
+      component: '@/layouts',
+      routes: [
+        { path: '/phone', component: '@/pages/phone'},
+        { path: '/phone/create', component: '@/pages/phone/create' },
+        { path: '/phone/detail', component: '@/pages/phone/detail'}
+      ] 
+    },
   ],
   fastRefresh: {},
   ssr: {}

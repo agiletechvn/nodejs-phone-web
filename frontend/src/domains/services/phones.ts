@@ -16,6 +16,8 @@ export const createPhone = async (phone: PhoneInterface) => {
 
 export const getPhones = async () => BE.get(PATHS.PHONE_LIST);
 
+export const getPhone = async (id: string) => BE.get(PATHS.PHONE_DETAIL(id))
+
 export const deletePhone = async (id: number) => BE.delete(PATHS.PHONE_DELETE(id));
 
 export const updatePhone = async (phone: PhoneInterface, id: number) => {
